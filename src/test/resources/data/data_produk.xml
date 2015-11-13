@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <m_produk
+        id="p-001"
+        kode_produk = "produk-001"
+        nama_produk = "Produk A"
+        harga = "250000"
+    />
+    <m_produk
+        id="p-002"
+        kode_produk = "produk-002"
+        nama_produk = "Produk B"
+        harga = "375000"
+    />
+    <m_produk
+        id="p-003"
+        kode_produk = "produk-003"
+        nama_produk = "Produk C"
+        harga = "420000"
+    />
+    <m_produk
+        id="p-004"
+        kode_produk = "produk-004"
+        nama_produk = "Produk D"
+        harga = "580000"
+    />
+    <m_produk
+        id="p-005"
+        kode_produk = "produk-005"
+        nama_produk = "Produk E"
+        harga = "640000"
+    />
+</dataset>
