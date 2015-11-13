@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.1.xsd">
+        
+    <context:property-placeholder location="classpath*:jdbc.properties"/>
+    <context:component-scan base-package="com.agung.template.springjpa.service,com.agung.template.springjpa.service.impl"/>
+    
+    <tx:annotation-driven/>
+    
+    <!-- datasource configuration -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+                destroy-method = "close"
+                p:driverClassName="${jdbc.driver}" 
+                p:url="${jdbc.url}"
+		p:username="${jdbc.username}" 
+                p:password="${jdbc.password}"
+                p:maxWait="40000"
+		p:maxActive="80" 
+                p:maxIdle="20"/>
+    
+    <jpa:repositories base-package="com.agung.template.springjpa.dao"/>
+    
+    <!-- transaction management configuration -->
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+    
+    <!-- Entity manager factory & hibernate properties-->
+    <bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.agung.template.springjpa.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="databasePlatform" value="${hibernate.dialect}" />
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.format_sql">true</prop>
+                                <prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+                </property>
+	</bean>
+    
+
+</beans>
