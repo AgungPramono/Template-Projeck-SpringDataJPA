@@ -40,6 +40,7 @@ public class Produk {
     
     @Column(nullable = false)
     private BigDecimal harga;
+    
 
     public String getId() {
         return id;

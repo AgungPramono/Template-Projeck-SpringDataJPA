@@ -13,6 +13,7 @@
 package com.agung.template.springjpa.service;
 
 import com.agung.template.springjpa.entity.Produk;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,7 +25,7 @@ public interface ProdukService {
     public void save(Produk p);
     public void delete(Produk p);
     public Produk findByKode(String kode);
-    public Produk findProdukById(String id);
+    public Optional<Produk> findProdukById(String id);
     Long countAllProduk();
     Page<Produk> findAllProduk(String search,Pageable page);
     Page<Produk> findAllProduk(Pageable page);

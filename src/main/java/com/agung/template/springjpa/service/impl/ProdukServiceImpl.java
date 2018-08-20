@@ -12,9 +12,10 @@
  */
 package com.agung.template.springjpa.service.impl;
 
-import com.agung.template.springjpa.dao.ProdukDao;
 import com.agung.template.springjpa.entity.Produk;
+import com.agung.template.springjpa.repository.ProdukDao;
 import com.agung.template.springjpa.service.ProdukService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,12 +64,12 @@ public class ProdukServiceImpl implements ProdukService{
     }
 
     @Override
-    public Produk findProdukById(String id) {
+    public Optional<Produk> findProdukById(String id) {
         if(!StringUtils.hasText(id)){
             return null;
         }
         
-        return produDao.findOne(id);
+        return produDao.findById(id);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class ProdukServiceImpl implements ProdukService{
         }
         
         if(page == null){
-            page = new PageRequest(0, 20);
+            page = PageRequest.of(0, 20);
         }
         
         return produDao.search("%" + search + "%", page);
@@ -92,7 +93,7 @@ public class ProdukServiceImpl implements ProdukService{
     @Override
     public Page<Produk> findAllProduk(Pageable page) {
         if(page == null){
-            page = new PageRequest(0, 20);
+            page = PageRequest.of(0, 20);
         }
         
         return produDao.findAll(page);
